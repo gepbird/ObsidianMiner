@@ -17,9 +17,15 @@ This mod is only recommended for singleplayer or for SMP. Using this mod on a se
 * Stops when you're below Y=60 for safety
 * Very small or no chance of falling off
 * XP sounds to remind you when the mod has finished mining
+* Automatic eating from offhand when the player is hungry
 
 ## Future features
-* Automatic eating from offhand
+* Stop when inventory is full
+
+## Known bugs
+* Automatic eating only works when some GUI is open
+* Manual player movement can mess with the mod a bit
+* Not mining and trying to pick up every obsidian in a tower
 
 -------------------------------------------
 Source installation information for modders
