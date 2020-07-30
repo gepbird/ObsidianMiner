@@ -1,3 +1,26 @@
+# Minecraft Obsidian Miner for 1.16.1 Forge
+This mod was made to automate obsidian mining.
+If you need a lot of obsidian but don't have a wither powered obsidian farm, don't waste your time by manually mining it, try out this mod.
+
+## Warning
+This mod is only recommended for singleplayer or for SMP. Using this mod on a server that has good anti-cheat may get you banned!
+
+## How to use it
+1. Get a diamond or netherite pickaxe in your hand
+2. Get on top of an obsidian pillar in the end
+3. Press F4 to turn on the mod
+4. Feel free to leave the game and go AFK while it's mining for you
+5. When the mod is done mining the pillar, you will hear XP sounds, p ress F4 again to turn off the mod
+
+## Features
+* Automatic obsidian mining and collecting
+* Stops when you're below Y=60 for safety
+* Very small or no chance of falling off
+* XP sounds to remind you when the mod has finished mining
+
+## Future features
+* Automatic eating from offhand
+
 -------------------------------------------
 Source installation information for modders
 -------------------------------------------
@@ -15,7 +38,7 @@ Standalone source installation
 ==============================
 
 See the Forge Documentation online for more detailed instructions:
-http://mcforge.readthedocs.io/en/latest/gettingstarted/
+[http://mcforge.readthedocs.io/en/latest/gettingstarted/](http://mcforge.readthedocs.io/en/latest/gettingstarted/)
 
 Step 1: Open your command-line and browse to the folder where you extracted the zip file.
 
@@ -47,7 +70,7 @@ installation process, no further action is required on your part.
 
 LexManos' Install Video
 =======================
-https://www.youtube.com/watch?v=8VEdtQLuLO0&feature=youtu.be
+[https://www.youtube.com/watch?v=8VEdtQLuLO0&feature=youtu.be](https://www.youtube.com/watch?v=8VEdtQLuLO0&feature=youtu.be)
 
 For more details update more often refer to the Forge Forums:
-http://www.minecraftforge.net/forum/index.php/topic,14048.0.html
+[http://www.minecraftforge.net/forum/index.php/topic,14048.0.html](http://www.minecraftforge.net/forum/index.php/topic,14048.0.html)
