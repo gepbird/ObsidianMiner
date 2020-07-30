@@ -2,37 +2,27 @@ package com.gutyina70.obsidianminer;
 
 import java.util.List;
 
-import com.mojang.brigadier.CommandDispatcher;
-
+import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
-import net.minecraft.command.CommandSource;
-import net.minecraft.command.Commands;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.math.vector.Vector3i;
-import net.minecraft.util.text.TextComponent;
-import net.minecraft.world.IEntityReader;
-import net.minecraftforge.client.event.ClientChatEvent;
-import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.client.event.InputEvent.KeyInputEvent;
 import net.minecraftforge.client.event.InputUpdateEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
-import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 @Mod("obsidianminer")
 public class ObsidianMinerMod
 {
@@ -86,6 +76,18 @@ public class ObsidianMinerMod
     	if(	!enabled ||
 			player == null)
     	{
+    		return;
+    	}
+    	
+    	/*
+    	 * Feed the player from the offhand when it's hungry
+    	 */
+    	    	
+    	ItemStack offhandItem = player.getHeldItemOffhand();
+    	if(	IsFood(offhandItem) &&
+			player.getFoodStats().getFoodLevel() < 7)
+    	{
+    		mc.playerController.processRightClick(player, mc.world, Hand.OFF_HAND);
     		return;
     	}
     	
@@ -227,7 +229,18 @@ public class ObsidianMinerMod
     
     boolean IsObsidian(BlockPos pos)
     {
-    	return mc.world.getBlockState(pos).getBlock().getRegistryName().toString().equals("minecraft:obsidian");
+    	return mc.world.getBlockState(pos).getBlock() == Blocks.OBSIDIAN;
+    }
+    
+    boolean IsFood(ItemStack item)
+    {
+    	ItemGroup group = item.getItem().getGroup();
+    	if(group == null)
+    	{
+    		return false;
+    	}
+    	
+    	return group.getTabLabel().equals("food");
     }
     
     /* 
@@ -266,5 +279,4 @@ public class ObsidianMinerMod
     	
     	return null;
     }
-    
 }
