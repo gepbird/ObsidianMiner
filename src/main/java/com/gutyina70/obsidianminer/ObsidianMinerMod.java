@@ -2,6 +2,7 @@ package com.gutyina70.obsidianminer;
 
 import java.util.List;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
@@ -87,9 +88,30 @@ public class ObsidianMinerMod
     	    	
     	ItemStack offhandItem = player.getHeldItemOffhand();
     	if(	IsFood(offhandItem) &&
-			player.getFoodStats().getFoodLevel() < 7)
+			player.getFoodStats().getFoodLevel() < 8)
     	{
     		mc.playerController.processRightClick(player, mc.world, Hand.OFF_HAND);
+    		return;
+    	}
+    	
+    	/*
+    	 * Stop when player is too hungry
+    	 */
+    	
+    	if(player.getFoodStats().getFoodLevel() < 7)
+    	{
+    		TryWarningThePlayer("You are hungry, put some food in your offhand");
+    		return;	
+    	}
+    	
+    	/*
+    	 * Stop when the player is below Y=60 for safety
+    	 */
+    	
+    	Vector3d playerPos = player.getPositionVec();
+    	if(playerPos.y < 60)
+    	{
+    		TryWarningThePlayer("You are below the safety area (Y=60)");
     		return;
     	}
     	
@@ -100,29 +122,6 @@ public class ObsidianMinerMod
     	if(player.inventory.getFirstEmptyStack() == -1)
     	{
     		TryWarningThePlayer("Inventory full");
-    		return;
-    	}
-    	
-    	/*
-    	 * Stop when the tool is about to break
-    	 */
-    	
-    	ItemStack handItem = player.getHeldItemMainhand();
-    	int handItemDamageLeft = handItem.getMaxDamage() - handItem.getDamage();
-    	// This condition ensures that the player is breaking it with a tool,
-    	// since non-tool items always has 0 damage left
-    	if(handItemDamageLeft <= 1)
-    	{
-    		TryWarningThePlayer("Your tool is about to break");
-    		return;
-    	}
-    	
-    	Vector3d playerPos = player.getPositionVec();
-    	// When the player is below the safety area (Y=60),
-    	// don't do anything but remind the player about it
-    	if(playerPos.y < 60)
-    	{
-    		TryWarningThePlayer("You are below the safety area (Y=60)");
     		return;
     	}
     	
@@ -147,6 +146,29 @@ public class ObsidianMinerMod
         	miningBlock = blockPos;
     	}
     	
+    	/*
+    	 * Stop when the player doesn't have the right tool
+    	 */
+    	
+		BlockState blockToBreak = mc.world.getBlockState(miningBlock);
+    	ItemStack handItem = player.getHeldItemMainhand();
+    	if(!handItem.canHarvestBlock(blockToBreak))
+    	{
+    		TryWarningThePlayer("You can't mine obsidian with this item");
+    		return;
+    	}
+    	
+    	/*
+    	 * Stop when the player's tool is about to break
+    	 */
+    	
+    	int handItemDamageLeft = handItem.getMaxDamage() - handItem.getDamage();
+    	if(handItemDamageLeft <= 1)
+    	{
+    		TryWarningThePlayer("Your tool is about to break");
+    		return;
+    	}
+		
     	// Break the miningBlock
     	mc.playerController.onPlayerDamageBlock(miningBlock, Direction.UP);
     	
