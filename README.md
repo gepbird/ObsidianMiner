@@ -20,6 +20,8 @@ This mod is only recommended for singleplayer or for SMP. Using this mod on a se
    * your inventory is full
    * no near obsidian found
    * your tool is about to break
+   * your tool is not able to harvest obsidian
+   * you are hungry
 * Automatic eating from offhand when the player is hungry
 
 ## Known bugs
