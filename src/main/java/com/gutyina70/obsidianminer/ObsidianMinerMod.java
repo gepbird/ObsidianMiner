@@ -17,12 +17,14 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3i;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.client.event.InputEvent.KeyInputEvent;
 import net.minecraftforge.client.event.InputUpdateEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
 @Mod("obsidianminer")
 public class ObsidianMinerMod
 {
@@ -91,12 +93,36 @@ public class ObsidianMinerMod
     		return;
     	}
     	
+    	/*
+    	 * Stop when inventory is full
+    	 */
+    	
+    	if(player.inventory.getFirstEmptyStack() == -1)
+    	{
+    		TryWarningThePlayer("Inventory full");
+    		return;
+    	}
+    	
+    	/*
+    	 * Stop when the tool is about to break
+    	 */
+    	
+    	ItemStack handItem = player.getHeldItemMainhand();
+    	int handItemDamageLeft = handItem.getMaxDamage() - handItem.getDamage();
+    	// This condition ensures that the player is breaking it with a tool,
+    	// since non-tool items always has 0 damage left
+    	if(handItemDamageLeft <= 1)
+    	{
+    		TryWarningThePlayer("Your tool is about to break");
+    		return;
+    	}
+    	
     	Vector3d playerPos = player.getPositionVec();
     	// When the player is below the safety area (Y=60),
     	// don't do anything but remind the player about it
     	if(playerPos.y < 60)
     	{
-    		TryPlayingReminderSound();
+    		TryWarningThePlayer("You are below the safety area (Y=60)");
     		return;
     	}
     	
@@ -114,7 +140,7 @@ public class ObsidianMinerMod
         	// When no blocks found, don't do anything but remind the player about it
         	if(blockPos == null)
         	{
-        		TryPlayingReminderSound();
+        		TryWarningThePlayer("No near obsidian found");
             	return;
         	}
         	
@@ -216,11 +242,16 @@ public class ObsidianMinerMod
     	}
     }
 
-	// Play the exp pickup sound every 5 seconds
-    void TryPlayingReminderSound()
+	// Warn the player with sound and text
+    void TryWarningThePlayer(String message)
     {
+    	// Display action bar message
+    	mc.ingameGUI.setOverlayMessage(new StringTextComponent("§c" + message), false);
+    	
+    	// Only run this every 5 seconds
     	if(ticks % 100 == 0)
     	{
+    		// Play XP sound
     		ResourceLocation location = new ResourceLocation("minecraft", "entity.experience_orb.pickup");
         	SoundEvent event = new SoundEvent(location);
         	player.playSound(event, 1, 1);
