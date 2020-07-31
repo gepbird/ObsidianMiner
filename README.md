@@ -10,17 +10,17 @@ This mod is only recommended for singleplayer or for SMP. Using this mod on a se
 2. Get on top of an obsidian pillar in the end
 3. Press F4 to turn on the mod
 4. Feel free to leave the game and go AFK while it's mining for you
-5. When the mod is done mining the pillar, you will hear XP sounds, p ress F4 again to turn off the mod
+5. When the mod is done mining the pillar, you will hear XP sounds, press F4 again to turn off the mod
 
 ## Features
 * Automatic obsidian mining and collecting
 * Stops when you're below Y=60 for safety
 * Very small or no chance of falling off
-* XP sounds to remind you when the mod has finished mining
+* XP sounds and action bar text to remind you when
+   * your inventory is full
+   * no near obsidian found
+   * your tool is about to break
 * Automatic eating from offhand when the player is hungry
-
-## Future features
-* Stop when inventory is full
 
 ## Known bugs
 * Automatic eating only works when some GUI is open
