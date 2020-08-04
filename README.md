@@ -3,7 +3,7 @@ This mod was made to automate obsidian mining.
 If you need a lot of obsidian but don't have a wither powered obsidian farm, don't waste your time by manually mining it, try out this mod.
 
 ## Warning
-This mod is only recommended for singleplayer or for SMP. Using this mod on a server that has good anti-cheat may get you banned!
+This mod is only recommended for singleplayer or for SMP. Using this mod on a server that has anti-cheat may get you banned!
 
 ## How to use it
 1. Get a diamond or netherite pickaxe in your hand
